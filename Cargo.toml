@@ -1,0 +1,28 @@
+[package]
+name = "geonexus"
+version = "1.1.1"
+edition = "2021"
+rust-version = "1.70"
+description = "GeoNexus SDK for Rust — GeoCard, GeoMCP, Registry and OGE clients (parity with the Python SDK v1.1.1)"
+license = "Apache-2.0"
+repository = "https://github.com/GeoNexus-Team/GeoNexus-SDK"
+readme = "README.md"
+keywords = ["geospatial", "geomcp", "geocard", "oge", "mcp"]
+categories = ["api-bindings", "science::geo"]
+
+# 刻意为空：这个 crate 只用 std。
+#
+# 两个原因：
+#   1. 供应链最小化——嵌入到别人的服务里时，不想因为一个 HTTP 客户端拖进
+#      几十个传递依赖。
+#   2. 现实约束——本项目的构建环境无法访问 crates.io，加了依赖就编译不了，
+#      而未经验证的"能编译"是假承诺。
+#
+# 代价：HTTP 只支持 http://（std 没有 TLS）。GeoMCP 节点、注册中心与 OGE
+# 在本项目里都是明文 HTTP，所以这个限制是可接受的；需要 HTTPS 时请放在
+# 反向代理后面，或改用其他语言的 SDK。
+[dependencies]
+
+[lib]
+name = "geonexus"
+path = "src/lib.rs"
